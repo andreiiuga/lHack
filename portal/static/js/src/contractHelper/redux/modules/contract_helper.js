@@ -4,16 +4,17 @@ import { Map, List } from 'immutable';
 // App
 import { MODULE_NAME } from '../constants';
 
-const CURRENT_NAME = 'module11';
+const CURRENT_NAME = 'contract_helper';
 
 // ACTION CONSTANTS
 const GET_REQUEST = `${MODULE_NAME}/${CURRENT_NAME}/GET_REQUEST`;
 const GET_SUCCESS = `${MODULE_NAME}/${CURRENT_NAME}/GET_SUCCESS`;
 
-const NOTIFY_REQUEST = `${MODULE_NAME}/${CURRENT_NAME}/NOTIFY_REQUEST`;
-const NOTIFY_SUCCESS = `${MODULE_NAME}/${CURRENT_NAME}/NOTIFY_SUCCESS`;
+const UPLOAD_REQUEST = `${MODULE_NAME}/${CURRENT_NAME}/UPLOAD_REQUEST`;
+const UPLOAD_SUCCESS = `${MODULE_NAME}/${CURRENT_NAME}/UPLOAD_SUCCESS`;
 const NOTIFICATION_ADD = `${MODULE_NAME}/${CURRENT_NAME}/NOTIFICATION_ADD`;
 const NOTIFICATION_REMOVE = `${MODULE_NAME}/${CURRENT_NAME}/NOTIFICATION_REMOVE`;
+const ADD_FILE = `${MODULE_NAME}/${CURRENT_NAME}/ADD_FILE`;
 
 const URL_BASE = '/api/v1/document/';
 const getDocumentByKey = (key) => `${URL_BASE}${key}`;
@@ -34,15 +35,15 @@ const getSuccess = (data) => {
 
 
 // ACTION CREATORS
-const notifyRequest = () => {
+const uploadRequest = () => {
   return {
-    type: NOTIFY_REQUEST
+    type: UPLOAD_REQUEST
   }
 };
 
 const notifySuccess = () => {
   return {
-    type: NOTIFY_SUCCESS
+    type: UPLOAD_SUCCESS
   }
 };
 
@@ -57,6 +58,13 @@ export const notificationRemove = (data) => {
   return {
     type: NOTIFICATION_REMOVE,
     data
+  }
+};
+
+export const addFile = (file) => {
+  return {
+    type: ADD_FILE,
+    file: file
   }
 };
 
@@ -75,10 +83,10 @@ export const getFromServer = () => {
 };
 
 // Async actions
-export const notifyServer = () => {
+export const uploadFile = (data) => {
   return (dispatch, getState) => {
-    dispatch(notifyRequest());
-    return axios.get(getDocumentByKey('notify_action'))
+    dispatch(uploadRequest());
+    return axios.post('api/v1/document/',data)
       .then(response => {
         dispatch(notifySuccess())
       }).catch((err) => {
@@ -91,10 +99,11 @@ export const notifyServer = () => {
 
 // REDUCERS
 const initialState = Map({
-  isInitialized: false,
+  isInitialized: true,
   isNotify: false,
   notifyStatus: '',
-  notifications: List()
+  notifications: List(),
+  uploaded_contract: {}
 });
 
 
@@ -111,16 +120,16 @@ export default (state=initialState, action={}) => {
     })
   }
 
-  case NOTIFY_REQUEST: {
+  case UPLOAD_REQUEST: {
     return state.merge({
-      notifyStatus: 'Requested Server',
+      isInitialized: false,
     })
   }
 
-  case NOTIFY_SUCCESS: {
+  case UPLOAD_SUCCESS: {
     return state.merge({
-      notifyStatus: 'Waiting for Socket',
-      isNotify: true,
+      isInitialized: true,
+      uploaded_contract:{}
     })
   }
 
@@ -132,6 +141,12 @@ export default (state=initialState, action={}) => {
 
   case NOTIFICATION_REMOVE: {
     return state.update('notifications', notifications => notifications.filter(x => x.get('message_uuid') !== action.data.message_uuid));
+  }
+
+  case ADD_FILE: {
+    return state.merge({
+      file: action.file
+    })
   }
 
   default: {

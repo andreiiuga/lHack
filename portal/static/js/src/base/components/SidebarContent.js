@@ -4,8 +4,8 @@ import MaterialTitlePanel from './MaterialTitlePanel';
 
 const styles = {
   sidebar: {
-    width: 256,
-    height: '100%',
+    width: 200,
+    height: '85%',
   },
   sidebarLink: {
     display: 'block',
@@ -17,7 +17,7 @@ const styles = {
     color: '#1c1c1c'
   },
   divider: {
-    margin: '26px 50px 8px 0px',
+    margin: '26px 10px 8px 0px',
     height: 1,
     backgroundColor: '#757575',
   },
@@ -32,13 +32,15 @@ const styles = {
 const SidebarContent = (props) => {
   const style = props.style ? {...styles.sidebar, ...props.style} : styles.sidebar;
 
-  const logo = (<img src="" height="25px" alt="Logo"/>);
-
   return (
-    <MaterialTitlePanel title={logo} style={style}>
+    <MaterialTitlePanel title={"lHack"} style={style}>
       <div style={styles.content}>
-        <Link to="/page1" style={styles.sidebarLink} activeStyle={styles.sidebarLinkActive}>Page 1</Link>
-        <Link to="/page2" style={styles.sidebarLink} activeStyle={styles.sidebarLinkActive}>Page 2</Link>
+        <Link to="/contract_helper" style={styles.sidebarLink} activeStyle={styles.sidebarLinkActive}>
+          Contract Helper
+        </Link>
+        <Link to="/page2" style={styles.sidebarLink} activeStyle={styles.sidebarLinkActive}>
+          Settings
+        </Link>
         <div style={styles.divider} />
       </div>
     </MaterialTitlePanel>
