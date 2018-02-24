@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'^', include('portal.urls', namespace='portal')),
+    url(r'^', include('document.urls', namespace='document')),
 
     # API
     url(r'^api/v1/', include('document.api.urls', namespace='document-api')),
