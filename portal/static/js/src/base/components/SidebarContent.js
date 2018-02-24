@@ -33,7 +33,7 @@ const SidebarContent = (props) => {
   const style = props.style ? {...styles.sidebar, ...props.style} : styles.sidebar;
 
   return (
-    <MaterialTitlePanel title={"lHack"} style={style}>
+    <MaterialTitlePanel title={(<i className="far fa-file-alt"></i>)} style={style}>
       <div style={styles.content}>
         <Link to="/contract_helper" style={styles.sidebarLink} activeStyle={styles.sidebarLinkActive}>
           Contract Helper

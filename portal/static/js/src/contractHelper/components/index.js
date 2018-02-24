@@ -18,14 +18,23 @@ class AppComponent extends React.Component {
   }
 
   handleAddFile(e) {
-    console.log(e.target.files[0])
     const { dispatch } = this.props;
-    dispatch(addFile(e.target.files[0]));
+    dispatch(addFile(e.target.files));
   }
 
   handleUploadFile() {
     const { dispatch, contract_helper } = this.props;
-    const data_to_send = {name: contract_helper.file.name, content: contract_helper.file}
+    const data_to_send = Object.assign({},
+      { filename: contract_helper.uploaded_contract[0].name, content:
+        { 
+          name: contract_helper.uploaded_contract[0].name,
+          lastModified: contract_helper.uploaded_contract[0].lastModified,
+          lastModifiedDate: contract_helper.uploaded_contract[0].lastModifiedDate,
+          size: contract_helper.uploaded_contract[0].size,
+          type: contract_helper.uploaded_contract[0].type,
+          webkitRelativePath: contract_helper.uploaded_contract[0].webkitRelativePath,
+        }
+      });
     dispatch(uploadFile(data_to_send));
   }
 

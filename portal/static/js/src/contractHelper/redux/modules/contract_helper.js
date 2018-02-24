@@ -19,7 +19,7 @@ const ADD_FILE = `${MODULE_NAME}/${CURRENT_NAME}/ADD_FILE`;
 
 
 var cookies = new Cookies();
-var axiosConf = { headers: { 'Content-Type': 'application/json' } };
+var axiosConf = { headers: { 'Content-Type': 'application/json', Accept: 'application/json' } };
 
 const URL_BASE = '/api/v1/document/';
 const getDocumentByKey = (key) => `${URL_BASE}${key}`;
@@ -93,7 +93,7 @@ export const uploadFile = (data, headers) => {
   return (dispatch, getState) => {
     dispatch(uploadRequest());
     axiosConf.headers[ 'X-CSRFToken' ] = cookies.get('csrftoken');
-    return axios.post('http://localhost:8008/api/v1/document/', data,  Object.assign({}, axiosConf, headers))
+    return axios.post('/upload/', data)
       .then(response => {
         dispatch(uploadSuccess())
       }).catch((err) => {
@@ -110,7 +110,7 @@ const initialState = Map({
   isNotify: false,
   notifyStatus: '',
   notifications: List(),
-  uploaded_contract: {}
+  uploaded_contract: []
 });
 
 
@@ -136,7 +136,7 @@ export default (state=initialState, action={}) => {
   case UPLOAD_SUCCESS: {
     return state.merge({
       isInitialized: true,
-      uploaded_contract:{}
+      uploaded_contract:[]
     })
   }
 
@@ -152,7 +152,7 @@ export default (state=initialState, action={}) => {
 
   case ADD_FILE: {
     return state.merge({
-      file: action.file
+      uploaded_contract: action.file
     })
   }
 
