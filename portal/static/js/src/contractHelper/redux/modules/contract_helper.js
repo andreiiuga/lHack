@@ -84,6 +84,7 @@ export const getFromServer = () => {
 
 // Async actions
 export const uploadFile = (data) => {
+  console.log(data);
   return (dispatch, getState) => {
     dispatch(uploadRequest());
     return axios.post('api/v1/document/',data)

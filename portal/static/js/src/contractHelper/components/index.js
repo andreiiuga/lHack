@@ -14,12 +14,19 @@ class AppComponent extends React.Component {
     super(props);
 
     this.handleAddFile = this.handleAddFile.bind(this);
+    this.handleUploadFile = this.handleUploadFile.bind(this);
   }
 
   handleAddFile(e) {
     console.log(e.target.files[0])
     const { dispatch } = this.props;
     dispatch(addFile(e.target.files[0]));
+  }
+
+  handleUploadFile() {
+    const { dispatch, contract_helper } = this.props;
+    const data_to_send = {name: contract_helper.file.name, content: contract_helper.file}
+    dispatch(uploadFile(data_to_send));
   }
 
   render() {
@@ -45,13 +52,13 @@ class AppComponent extends React.Component {
             <Button
               bsStyle="primary"
               onClick={() => {
-                dispatch(uploadFile());
+                dispatch(this.handleUploadFile());
               }}>
               Upload
             </Button>
           </Col>
           <Col xs={1} md={1}>
-            {!contract_helper.get('isInitialized') && <div>Loading</div>}
+            {!contract_helper.isInitialized && <div>Loading</div>}
           </Col>
         </Grid>
 
@@ -68,7 +75,7 @@ AppComponent.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    contract_helper: state.contract_helper
+    contract_helper: state.contract_helper.toJS()
   }
 };
 
