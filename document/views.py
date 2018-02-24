@@ -1,9 +1,9 @@
-from rest_framework.parsers import MultiPartParser
+from rest_framework.parsers import MultiPartParser, JSONParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 class FileUploadView(APIView):
-    parser_classes = (MultiPartParser,)
+    parser_classes = (JSONParser, MultiPartParser,)
 
     def post(self, request, format=None):
         # to access files
