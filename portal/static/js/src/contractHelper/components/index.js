@@ -42,23 +42,24 @@ class AppComponent extends React.Component {
             </h1>
           </Col>
 
-          <Col xs={3} md={2}>
-            <input
-              type="file"
-              name="contract-upload"
-              id="singleFile"
-              onChange={this.handleAddFile}
-            />
-            <Button
-              bsStyle="primary"
-              onClick={() => {
-                dispatch(this.handleUploadFile());
-              }}>
-              Upload
-            </Button>
-          </Col>
-          <Col xs={1} md={1}>
-            {!contract_helper.isInitialized && <div>Loading</div>}
+          <Col xs={12} md={12}>
+            <div className="upload-wrapper">
+              <input
+                type="file"
+                name="contract-upload"
+                id="singleFile"
+                onChange={this.handleAddFile}
+              />
+              <Button
+                bsStyle="primary"
+                onClick={() => {
+                  this.handleUploadFile();
+                }}>
+                <div>
+                  Upload {!contract_helper.isInitialized && <i className="fas fa-circle-notch fa-spin"></i>}
+                </div>
+              </Button>
+            </div>
           </Col>
         </Grid>
 
