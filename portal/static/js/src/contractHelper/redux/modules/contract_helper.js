@@ -92,8 +92,7 @@ export const uploadFile = (data, headers) => {
   console.log(data);
   return (dispatch, getState) => {
     dispatch(uploadRequest());
-    axiosConf.headers[ 'X-CSRFToken' ] = cookies.get('csrftoken');
-    return axios.post('/upload/', data)
+    return axios.post('/upload/', data, {headers: { 'content-type': 'multipart/form-data;boundary=BoUnDaRyStRiNg' }})
       .then(response => {
         dispatch(uploadSuccess())
       }).catch((err) => {
@@ -106,7 +105,7 @@ export const uploadFile = (data, headers) => {
 
 // REDUCERS
 const initialState = Map({
-  isInitialized: true,
+  isInitialized: false,
   isNotify: false,
   notifyStatus: '',
   notifications: List(),
@@ -129,13 +128,13 @@ export default (state=initialState, action={}) => {
 
   case UPLOAD_REQUEST: {
     return state.merge({
-      isInitialized: false,
+      isInitialized: 'req',
     })
   }
 
   case UPLOAD_SUCCESS: {
     return state.merge({
-      isInitialized: true,
+      isInitialized: 'succ',
       uploaded_contract:[]
     })
   }

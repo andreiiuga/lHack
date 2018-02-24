@@ -24,17 +24,8 @@ class AppComponent extends React.Component {
 
   handleUploadFile() {
     const { dispatch, contract_helper } = this.props;
-    const data_to_send = Object.assign({},
-      { filename: contract_helper.uploaded_contract[0].name, content:
-        { 
-          name: contract_helper.uploaded_contract[0].name,
-          lastModified: contract_helper.uploaded_contract[0].lastModified,
-          lastModifiedDate: contract_helper.uploaded_contract[0].lastModifiedDate,
-          size: contract_helper.uploaded_contract[0].size,
-          type: contract_helper.uploaded_contract[0].type,
-          webkitRelativePath: contract_helper.uploaded_contract[0].webkitRelativePath,
-        }
-      });
+    const data_to_send = 
+      contract_helper.uploaded_contract[0];
     dispatch(uploadFile(data_to_send));
   }
 
@@ -65,7 +56,15 @@ class AppComponent extends React.Component {
                   this.handleUploadFile();
                 }}>
                 <div>
-                  Upload {!contract_helper.isInitialized && <i className="fas fa-circle-notch fa-spin"></i>}
+                  Upload
+                  {contract_helper.isInitialized ?
+                  <span>
+                    {
+                      contract_helper.isInitialized === 'succ' ?
+                        <i className="fas fa-circle-notch fa-spin"></i>:
+                        <i className="fas fa-check"></i>
+                    }
+                  </span> : ''}
                 </div>
               </Button>
             </div>
