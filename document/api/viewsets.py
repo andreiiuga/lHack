@@ -20,6 +20,6 @@ class DocumentViewSet(viewsets.ModelViewSet):
     parser_classes = (MultiPartParser, FormParser,)
 
     def perform_create(self, serializer):
-        print self.request.data.get('datafile')
+        print self.request.data.get('content')
         serializer.save(owner=self.request.user,
-                        datafile=self.request.data.get('datafile'))
+                        datafile=self.request.data.get('content'))
