@@ -3,8 +3,8 @@ import thunk from 'redux-thunk';
 import io from 'socket.io-client';
 
 // App
-import { reducers as module11 }  from './page1';
-import { notificationAdd,  notificationRemove}  from './page1/redux/modules/module11';
+import { reducers as contract_helper }  from './contractHelper';
+import { notificationAdd,  notificationRemove}  from './contractHelper/redux/modules/contract_helper';
 import { reducers as module1}  from './page2';
 import { reducers as user } from './base';
 
@@ -19,7 +19,7 @@ if (window.location.hostname === 'localhost') {
 
 const socket = io(serverAddress);
 const reducers = combineReducers({
-  module11,
+  contract_helper,
   module1,
   user
 });

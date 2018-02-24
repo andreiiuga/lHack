@@ -16,7 +16,7 @@ urlpatterns = [
 
     # For react to work correctly
     url(
-        r'^page1',
+        r'^contract_helper',
         views.index,
         name='index'
     ),

@@ -46,7 +46,7 @@ class SideBarComponent extends Component {
   }
 
   componentDidMount() {
-    this.props.getFromServer();
+    //this.props.getFromServer();
   }
 
   componentWillUnmount() {
@@ -69,9 +69,6 @@ class SideBarComponent extends Component {
   }
 
   renderHeaderContent() {
-    const { user } = this.props;
-    const isLoggedIn = user.get('isLoggedIn');
-    const details = user.get('details');
 
     return (
       <div className="header clearfix">
@@ -84,21 +81,6 @@ class SideBarComponent extends Component {
           </a>
         )}
         <span>Lhack</span>
-
-        { isLoggedIn && (
-          <div className="account">
-            <i className="fa fa-user-circle" />
-            <span className="account-email">
-              <span className="account-email-overflow">{ details.get('username') }</span>
-            </span>
-            <a 
-              href="/accounts/logout"
-              className="account-sign-out">
-              <i className="fa fa-sign-out"></i>
-            </a>
-          </div> 
-        )}
-
       </div>
     );
   }
@@ -129,7 +111,6 @@ SideBarComponent.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
   };
 };
 
