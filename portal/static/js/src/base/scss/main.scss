@@ -1,0 +1,37 @@
+.account {
+    float: right;
+    font-size: 16px;
+    padding: 3px 0;
+
+    > span, 
+    > i, 
+    > a {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+
+.account-email {
+    padding: 0 13px 0 7px;
+    margin-right: 13px;
+    border-right: 1px solid #825258;
+    max-width: 200px;
+}
+
+.account-email-overflow {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.account-sign-out {
+    font-size: 14px;
+    color: #fff;
+    vertical-align: middle;
+
+    &:hover {
+        color: #fff;
+        opacity: 0.7;
+    }
+}
