@@ -89,10 +89,12 @@ export const getFromServer = () => {
 
 // Async actions
 export const uploadFile = (data, headers) => {
-  console.log(data);
+  var formData = new FormData();
+  formData.append("image", data);
+  console.log(formData);
   return (dispatch, getState) => {
     dispatch(uploadRequest());
-    return axios.post('/upload/', data, {headers: { 'content-type': 'multipart/form-data;boundary=BoUnDaRyStRiNg' }})
+    return axios.post('/upload/', formData, {headers: { 'content-type': 'multipart/form-data;boundary=BoUnDaRyStRiNg' }})
       .then(response => {
         dispatch(uploadSuccess())
       }).catch((err) => {
