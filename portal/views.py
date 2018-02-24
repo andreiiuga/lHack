@@ -5,8 +5,6 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 
 
-# Create your views here.
-@login_required(login_url='/accounts/login/')
 def index(request):
     context = {'HOT_LOAD': settings.HOT_LOAD}
     return render(request, 'portal/index.html', context)
