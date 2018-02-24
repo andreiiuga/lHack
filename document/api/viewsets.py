@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 class DocumentViewSet(viewsets.ModelViewSet):
 
     queryset = Document.objects.all()
-    serializer_class = serializers
+    serializer_class = serializers.DocumentSerializer
     parser_classes = (MultiPartParser, FormParser,)
 
     def perform_create(self, serializer):
