@@ -36,3 +36,12 @@ body {
   border: 1px solid #000;
   border-width: 1px 0;
 }
+
+.upload-wrapper {
+  background-color: #f1f1f1;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #e1e1e1;
+  align-items: center;
+}

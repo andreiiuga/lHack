@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Map, List } from 'immutable';
+import Cookies from "universal-cookie";
 
 // App
 import { MODULE_NAME } from '../constants';
@@ -15,6 +16,10 @@ const UPLOAD_SUCCESS = `${MODULE_NAME}/${CURRENT_NAME}/UPLOAD_SUCCESS`;
 const NOTIFICATION_ADD = `${MODULE_NAME}/${CURRENT_NAME}/NOTIFICATION_ADD`;
 const NOTIFICATION_REMOVE = `${MODULE_NAME}/${CURRENT_NAME}/NOTIFICATION_REMOVE`;
 const ADD_FILE = `${MODULE_NAME}/${CURRENT_NAME}/ADD_FILE`;
+
+
+var cookies = new Cookies();
+var axiosConf = { headers: { 'Content-Type': 'application/json' } };
 
 const URL_BASE = '/api/v1/document/';
 const getDocumentByKey = (key) => `${URL_BASE}${key}`;
@@ -41,7 +46,7 @@ const uploadRequest = () => {
   }
 };
 
-const notifySuccess = () => {
+const uploadSuccess = () => {
   return {
     type: UPLOAD_SUCCESS
   }
@@ -83,13 +88,14 @@ export const getFromServer = () => {
 };
 
 // Async actions
-export const uploadFile = (data) => {
+export const uploadFile = (data, headers) => {
   console.log(data);
   return (dispatch, getState) => {
     dispatch(uploadRequest());
-    return axios.post('api/v1/document/',data)
+    axiosConf.headers[ 'X-CSRFToken' ] = cookies.get('csrftoken');
+    return axios.post('http://localhost:8008/api/v1/document/', data,  Object.assign({}, axiosConf, headers))
       .then(response => {
-        dispatch(notifySuccess())
+        dispatch(uploadSuccess())
       }).catch((err) => {
         console.error(err.response || err);
         throw err;
