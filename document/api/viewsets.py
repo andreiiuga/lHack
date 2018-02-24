@@ -1,22 +1,25 @@
 import logging
 
 # App
-from document.models import Document, DocumentTag
+from document.models import Document
 from document.api import serializers
 
 # rest_framework
 from rest_framework import viewsets
 from rest_framework.decorators import list_route
 from rest_framework.response import Response
+from rest_framework.parsers import FormParser, MultiPartParser
 
 logger = logging.getLogger(__name__)
 
+
 class DocumentViewSet(viewsets.ModelViewSet):
-    serializer_class = serializers.DocumentSerializer
+
     queryset = Document.objects.all()
+    serializer_class = serializers
+    parser_classes = (MultiPartParser, FormParser,)
 
-
-class DocumentTagViewSet(viewsets.ModelViewSet):
-    serializer_class = serializers.DocumentTagSerializer
-    queryset = DocumentTag.objects.filter().all()
-    http_method_names = ['get', 'post', 'delete', 'put']
+    def perform_create(self, serializer):
+        print self.request.data.get('datafile')
+        serializer.save(owner=self.request.user,
+                        datafile=self.request.data.get('datafile'))

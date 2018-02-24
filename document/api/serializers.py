@@ -1,5 +1,5 @@
 # App
-from document.models import Document, DocumentTag
+from document.models import Document
 
 # rest_framework
 from rest_framework import serializers
@@ -13,10 +13,4 @@ class DocumentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Document
-        fields = '__all__'
-
-
-class DocumentTagSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DocumentTag
         fields = '__all__'

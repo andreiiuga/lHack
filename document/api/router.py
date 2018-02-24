@@ -11,9 +11,3 @@ router.register(
     viewsets.DocumentViewSet,
     base_name='document'
 )
-
-router.register(
-    r'tag',
-    viewsets.DocumentTagViewSet,
-    base_name='tag'
-)
