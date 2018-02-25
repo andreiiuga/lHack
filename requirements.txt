@@ -9,7 +9,6 @@ dill==0.2.7.1
 Django==1.10.5
 django-allauth==0.30.0
 djangorestframework==3.5.3
-en-core-web-sm==2.0.0
 enum-compat==0.0.2
 enum34==1.1.6
 eventlet==0.20.1

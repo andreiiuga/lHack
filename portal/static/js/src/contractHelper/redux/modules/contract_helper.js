@@ -46,10 +46,11 @@ const uploadRequest = () => {
   }
 };
 
-const uploadSuccess = (sentences) => {
+const uploadSuccess = (sentences,highlight) => {
   return {
     type: UPLOAD_SUCCESS,
-    sentences: sentences
+    sentences: sentences,
+    highlight: highlight
   }
 };
 
@@ -97,7 +98,7 @@ export const uploadFile = (data, headers) => {
     dispatch(uploadRequest());
     return axios.post('/upload/', formData, {headers: { 'content-type': 'multipart/form-data;boundary=BoUnDaRyStRiNg' }})
       .then(response => {
-        dispatch(uploadSuccess(response.data.sentences))
+        dispatch(uploadSuccess(response.data.sentences,response.data.highlights))
       }).catch((err) => {
         console.error(err.response || err);
         throw err;
@@ -113,7 +114,8 @@ const initialState = Map({
   notifyStatus: '',
   notifications: List(),
   uploaded_contract: [],
-  sentences:[]
+  sentences:[],
+  highlight: []
 });
 
 
@@ -139,7 +141,8 @@ export default (state=initialState, action={}) => {
   case UPLOAD_SUCCESS: {
     return state.merge({
       isInitialized: 'succ',
-      sentences: action.sentences
+      sentences: action.sentences,
+      highlight: action.highlight
     })
   }
 
