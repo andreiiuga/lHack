@@ -81,6 +81,7 @@ class SideBarComponent extends Component {
           </a>
         )}
         <span>LawMap</span>
+        <img className="img-set" src="/static/img/logo_map2.png"/>
       </div>
     );
   }

@@ -30,11 +30,12 @@ class AppComponent extends React.Component {
   }
 
   render() {
-    const { contract_helper, dispatch } = this.props;
+    const { contract_helper, dispatch, isInitialized } = this.props;
+    console.log(isInitialized);
 
 
     return (
-      <div style={{backgroundColor: 'whitesmoke', minHeight: '2000px', paddingBottom: '50px'}}>
+      <div style={{backgroundColor: 'whitesmoke', minHeight: '660px', paddingBottom: '50px'}}>
         <Grid fluid={true}>
           <Col xs={12} md={12}>
             <h3>
@@ -57,10 +58,10 @@ class AppComponent extends React.Component {
                 }}>
                 <div>
                   Upload
-                  {contract_helper.isInitialized ?
+                  {isInitialized ?
                   <span>
                     {
-                      contract_helper.isInitialized === 'succ' ?
+                      isInitialized === 'req' ?
                         <i className="fas fa-circle-notch fa-spin"></i>:
                         <i className="fas fa-check"></i>
                     }
@@ -84,7 +85,8 @@ AppComponent.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    contract_helper: state.contract_helper.toJS()
+    contract_helper: state.contract_helper.toJS(),
+    isInitialized: state.contract_helper.get('isInitialized')
   }
 };
 

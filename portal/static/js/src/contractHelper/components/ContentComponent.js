@@ -9,15 +9,24 @@ import 'contractHelper/scss/app.scss';
 
 class ContentComponent extends React.Component {
   render() {
-    const { sentences, isInitialized, fileName } = this.props;
+    const { sentences, highlight, isInitialized, fileName } = this.props;
     const render_str = sentences.map((sent,key) => {
+      console.log(highlight.get(key));
+      const sent_light_idx = highlight.get(key);
+      var hightlight_words = [];
+      sent_light_idx.map(h_light => {
+        hightlight_words.push(sent.substr(h_light[0],h_light[1]))
+      })
       const split = sent.split('__NL__MARKER__');
       var children = [];
       split.map((piece,key) => {
-        if(piece !== ''){
-          children.push(<span key={key+'sent'}>{piece}</span>);
-          children.push(<br key={key+'br'}/>)
-        }
+        var is_highlight = false
+        hightlight_words.map(word => {
+          is_highlight = piece.includes(word)
+        })
+
+        children.push(<span style={is_highlight ? { backgroundColor: 'yellow'} : {}} key={key+'sent'}>{piece}</span>);
+        children.push(<br key={key+'br'}/>)
       })
       return children;
     })
@@ -47,6 +56,7 @@ ContentComponent.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     sentences: state.contract_helper.get('sentences'),
+    highlight: state.contract_helper.get('highlight'),
     isInitialized: state.contract_helper.get('isInitialized'),
     fileName: state.contract_helper.get('uploaded_contract')
   }
