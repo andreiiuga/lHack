@@ -1,5 +1,4 @@
-from django.conf.urls import url, include
-from django.contrib import admin
+from django.conf.urls import url
 from document import views
 
 urlpatterns = [
@@ -7,5 +6,10 @@ urlpatterns = [
         r'^upload/',
         views.FileUploadView.as_view(),
         name='upload'
+    ),
+    url(
+        r'^query/',
+        views.QueryView.as_view(),
+        name='query'
     ),
 ]
