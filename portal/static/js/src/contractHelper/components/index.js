@@ -34,7 +34,7 @@ class AppComponent extends React.Component {
 
 
     return (
-      <div style={{backgroundColor: 'whitesmoke', height: '2000px'}}>
+      <div style={{backgroundColor: 'whitesmoke', minHeight: '2000px', paddingBottom: '50px'}}>
         <Grid fluid={true}>
           <Col xs={12} md={12}>
             <h3>
