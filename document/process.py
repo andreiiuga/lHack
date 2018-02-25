@@ -20,7 +20,7 @@ def process_doc(doc):
         doc = nlp(s)
         found = []
         for word in doc:
-            if word.dep_ in ('obj', 'dobj'):
+            if len(list(word.subtree)) > 1 and word.dep_ in ('obj', 'dobj'):
                 subtree_ids = [w.idx for w in word.subtree] + [w.idx + len(w) for w in word.subtree]
                 found.append((min(subtree_ids), max(subtree_ids)))
         ids.append(found)

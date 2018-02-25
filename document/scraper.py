@@ -14,5 +14,5 @@ def scrape(query):
 
     result_titles = soup.findAll('td', attrs={'class': 'publicationTitle'})
     for title in result_titles:
-        print title.text
+        print title.find('a', attrs={'class': 'title'}).href
     return [title.text for title in result_titles]
