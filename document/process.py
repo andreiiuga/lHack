@@ -76,7 +76,7 @@ def fetch_results(query):
 
     query_doc = nlp(query)
     sims = []
-    for res in scrape_results:
+    for res, link in scrape_results:
         s = nlp(res).similarity(query_doc)
         sims.append(s)
     print sims
