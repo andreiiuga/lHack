@@ -10,5 +10,5 @@ class FileUploadView(APIView):
     def post(self, request, format=None):
         # to access data
         file_obj = request.data['image'].read().decode('utf-8')
-        pr = process_doc(file_obj)
-        return Response({'sentences': pr})
+        sents, highlights = process_doc(file_obj)
+        return Response({'sentences': sents, 'highlights': highlights})
