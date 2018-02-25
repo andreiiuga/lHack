@@ -23,7 +23,7 @@ const PreviewSentencesPopup = ({ isOpen, title, data, onClose, initialized }) =>
           item.map(item2 => {
             return (
               <div>
-                <div>{item2.get(0)}</div>
+                <a href={item2.get(0).get(1)}><div>{item2.get(0).get(0)}</div></a>
                 <div>{item2.get(1)}</div>
                 <br/>
               </div>

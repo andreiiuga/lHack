@@ -130,8 +130,8 @@ export const uploadFile = (data, headers) => {
 
 export const getInfo = (data, headers) => {
   return (dispatch, getState) => {
-    dispatch(reqInfo());
     dispatch(openModal(true));
+    dispatch(reqInfo());
     return axios.post('/query/', data)
       .then(response => {
         console.log(response.data.results);
@@ -216,7 +216,8 @@ export default (state=initialState, action={}) => {
 
   case OPEN_MODAL: {
     return state.merge({
-      isModalOpen: action.open
+      isModalOpen: action.open,
+      info_data:[]
     })
   }
 
