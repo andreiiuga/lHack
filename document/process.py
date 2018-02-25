@@ -1,5 +1,6 @@
 import spacy
 
+from document.scraper import scrape
 from document.splitter import split_sentences
 
 
@@ -25,5 +26,20 @@ def process_doc(doc):
         ids.append(found)
 
     print len(nlsents)
-    print len(ids)
+    print ids
+
     return nlsents, ids
+
+def fetch_results(query):
+    scrape_results = scrape(query)
+    print query
+
+    query_doc = nlp(query)
+    sims = []
+    for res in scrape_results:
+        s = nlp(res).similarity(query_doc)
+        sims.append(s)
+    print sims
+    print scrape_results
+    ordered = sorted(zip(scrape_results, sims), key=lambda x: x[1], reverse=True)
+    return ordered[:3]
