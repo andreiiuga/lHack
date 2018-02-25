@@ -27,6 +27,8 @@ class ContentComponent extends React.Component {
             children.push(<span key={uuidV4()}>{piece.substring(idx,piece.indexOf(word))}</span>);
             children.push(<span style={{ backgroundColor: 'yellow'}} key={uuidV4()}>{word}</span>);
             idx = piece.indexOf(word) + word.length;
+            piece = piece.substr(idx);
+            idx = 0;
           }
         })
 
