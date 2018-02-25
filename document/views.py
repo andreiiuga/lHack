@@ -1,4 +1,4 @@
-from rest_framework.parsers import MultiPartParser, JSONParser
+from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -11,4 +11,4 @@ class FileUploadView(APIView):
         # to access data
         file_obj = request.data['image'].read().decode('utf-8')
         pr = process_doc(file_obj)
-        return Response({'processed': pr})
+        return Response({'sentences': pr})
