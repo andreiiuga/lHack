@@ -38,8 +38,8 @@ body {
 }
 
 .upload-wrapper {
-  background-color: #f1f1f1;
-  padding: 20px;
+  background-color: white;
+  padding: 15px;
   display: flex;
   justify-content: space-between;
   border: 1px solid #e1e1e1;
@@ -47,5 +47,23 @@ body {
 
   svg {
     margin-left: 5px;
+  }
+}
+
+.doc-wrapper {
+  background-color: lightgray;
+  margin: 15px;
+  padding: 20px;
+  margin-bottom: 50px;
+  background-color: #fff;
+  box-shadow: 0 4px 5px rgba(75, 75, 75, 0.2);
+  padding: 5%;
+
+  .doc-title {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 500;
   }
 }

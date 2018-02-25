@@ -34,12 +34,12 @@ class AppComponent extends React.Component {
 
 
     return (
-      <div>
+      <div style={{backgroundColor: 'whitesmoke', height: '2000px'}}>
         <Grid fluid={true}>
           <Col xs={12} md={12}>
-            <h1>
+            <h3>
               Contract Helper
-            </h1>
+            </h3>
           </Col>
 
           <Col xs={12} md={12}>

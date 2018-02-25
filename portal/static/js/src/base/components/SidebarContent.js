@@ -33,13 +33,13 @@ const SidebarContent = (props) => {
   const style = props.style ? {...styles.sidebar, ...props.style} : styles.sidebar;
 
   return (
-    <MaterialTitlePanel title={(<i className="far fa-file-alt"></i>)} style={style}>
+    <MaterialTitlePanel title={(<i className="far fa-map"></i>)} style={style}>
       <div style={styles.content}>
         <Link to="/contract_helper" style={styles.sidebarLink} activeStyle={styles.sidebarLinkActive}>
-          Contract Helper
+          {<span><i className="fas fa-user-md fa-lg" style={{color: 'rgb(16, 93, 75)'}}></i>{' '}Contract Helper</span>}
         </Link>
         <Link to="/page2" style={styles.sidebarLink} activeStyle={styles.sidebarLinkActive}>
-          Settings
+          {<span><i className="fas fa-cog" style={{color: 'rgb(16, 93, 75)'}}></i>{' '}Settings</span>}
         </Link>
         <div style={styles.divider} />
       </div>

@@ -80,7 +80,7 @@ class SideBarComponent extends Component {
             <i className="fa fa-bars" />
           </a>
         )}
-        <span>ContractR</span>
+        <span>LawMap</span>
       </div>
     );
   }
