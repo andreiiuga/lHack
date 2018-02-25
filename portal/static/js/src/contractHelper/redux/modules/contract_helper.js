@@ -15,7 +15,10 @@ const UPLOAD_REQUEST = `${MODULE_NAME}/${CURRENT_NAME}/UPLOAD_REQUEST`;
 const UPLOAD_SUCCESS = `${MODULE_NAME}/${CURRENT_NAME}/UPLOAD_SUCCESS`;
 const NOTIFICATION_ADD = `${MODULE_NAME}/${CURRENT_NAME}/NOTIFICATION_ADD`;
 const NOTIFICATION_REMOVE = `${MODULE_NAME}/${CURRENT_NAME}/NOTIFICATION_REMOVE`;
+const REQ_INFO = `${MODULE_NAME}/${CURRENT_NAME}/REQ_INFO`;
+const SUCCESS_INFO = `${MODULE_NAME}/${CURRENT_NAME}/SUCCESS_INFO`;
 const ADD_FILE = `${MODULE_NAME}/${CURRENT_NAME}/ADD_FILE`;
+const OPEN_MODAL = `${MODULE_NAME}/${CURRENT_NAME}/OPEN_MODAL`;
 
 
 var cookies = new Cookies();
@@ -75,6 +78,26 @@ export const addFile = (file) => {
   }
 };
 
+export const reqInfo = () => {
+  return {
+    type: REQ_INFO
+  }
+}
+
+export const succInfo = (data) => {
+  return {
+    type: SUCCESS_INFO,
+    info_data: data
+  }
+}
+
+export const openModal = (open) => {
+  return {
+    type: OPEN_MODAL,
+    open: open
+  }
+}
+
 // Async actions
 export const getFromServer = () => {
   return (dispatch, getState) => {
@@ -106,6 +129,20 @@ export const uploadFile = (data, headers) => {
   }
 };
 
+export const getInfo = (data, headers) => {
+  return (dispatch, getState) => {
+    dispatch(reqInfo());
+    dispatch(openModal(true));
+    return axios.post('/query/', data)
+      .then(response => {
+        dispatch(succInfo(response.data))
+      }).catch((err) => {
+        console.error(err.response || err);
+        throw err;
+      });
+  }
+};
+
 
 // REDUCERS
 const initialState = Map({
@@ -115,7 +152,10 @@ const initialState = Map({
   notifications: List(),
   uploaded_contract: [],
   sentences:[],
-  highlight: []
+  highlight: [],
+  initialized_info: false,
+  info_data: {},
+  isModalOpen: false,
 });
 
 
@@ -159,6 +199,24 @@ export default (state=initialState, action={}) => {
   case ADD_FILE: {
     return state.merge({
       uploaded_contract: action.file
+    })
+  }
+
+  case REQ_INFO: {
+    return state.merge({
+    })
+  }
+
+  case SUCCESS_INFO: {
+    return state.merge({
+      initialized_info: true,
+      info_data: action.info_data
+    })
+  }
+
+  case OPEN_MODAL: {
+    return state.merge({
+      isModalOpen: action.open
     })
   }
 

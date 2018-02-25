@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Alert, Grid, Col, Label } from 'react-bootstrap';
+import { Button, Alert, Grid, Col, Label, Modal } from 'react-bootstrap';
 import uuidV4 from 'uuid/v4';
 
 // App
@@ -31,8 +31,6 @@ class AppComponent extends React.Component {
 
   render() {
     const { contract_helper, dispatch, isInitialized } = this.props;
-    console.log(isInitialized);
-
 
     return (
       <div style={{backgroundColor: 'whitesmoke', minHeight: '660px', paddingBottom: '50px'}}>
@@ -71,10 +69,8 @@ class AppComponent extends React.Component {
             </div>
           </Col>
         </Grid>
-
         <hr />
-
-        <ContentComponent />
+        <ContentComponent/>
       </div>
     );
   }
@@ -86,7 +82,7 @@ AppComponent.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     contract_helper: state.contract_helper.toJS(),
-    isInitialized: state.contract_helper.get('isInitialized')
+    isInitialized: state.contract_helper.get('isInitialized'),
   }
 };
 
