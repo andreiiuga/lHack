@@ -19,10 +19,15 @@ const PreviewSentencesPopup = ({ isOpen, title, data, onClose, initialized }) =>
     {
       
       initialized === true ? (data.map(item => {
-        console.log(item);
         return <span>{
           item.map(item2 => {
-            <span>{item2}</span>
+            return (
+              <div>
+                <div>{item2.get(0)}</div>
+                <div>{item2.get(1)}</div>
+                <br/>
+              </div>
+            )
           })
         }</span>
       })) : <i className="fas fa-circle-notch fa-spin"></i>
@@ -36,7 +41,6 @@ const PreviewSentencesPopup = ({ isOpen, title, data, onClose, initialized }) =>
 class ContentComponent extends React.Component {
   render() {
     const { sentences, highlight, isInitialized, fileName , isModalOpen, initialized_info, info_data } = this.props;
-    console.log(info_data);
     const render_str = sentences.map((sent,key) => {
       const sent_light_idx = highlight.get(key);
       var hightlight_words = [];

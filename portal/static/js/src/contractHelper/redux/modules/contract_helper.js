@@ -116,7 +116,6 @@ export const getFromServer = () => {
 export const uploadFile = (data, headers) => {
   var formData = new FormData();
   formData.append("image", data);
-  console.log(formData);
   return (dispatch, getState) => {
     dispatch(uploadRequest());
     return axios.post('/upload/', formData, {headers: { 'content-type': 'multipart/form-data;boundary=BoUnDaRyStRiNg' }})
@@ -135,6 +134,7 @@ export const getInfo = (data, headers) => {
     dispatch(openModal(true));
     return axios.post('/query/', data)
       .then(response => {
+        console.log(response.data.results);
         dispatch(succInfo(response.data))
       }).catch((err) => {
         console.error(err.response || err);
@@ -154,7 +154,7 @@ const initialState = Map({
   sentences:[],
   highlight: [],
   initialized_info: false,
-  info_data: {},
+  info_data: [],
   isModalOpen: false,
 });
 
