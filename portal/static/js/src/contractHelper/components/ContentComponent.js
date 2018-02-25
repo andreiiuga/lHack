@@ -11,22 +11,27 @@ class ContentComponent extends React.Component {
   render() {
     const { sentences, highlight, isInitialized, fileName } = this.props;
     const render_str = sentences.map((sent,key) => {
-      console.log(highlight.get(key));
       const sent_light_idx = highlight.get(key);
       var hightlight_words = [];
       sent_light_idx.map(h_light => {
-        hightlight_words.push(sent.substr(h_light[0],h_light[1]))
+        console.log(h_light);
+        hightlight_words.push(sent.substring(h_light.get(0),h_light.get(1)))
       })
+      console.log(hightlight_words);
       const split = sent.split('__NL__MARKER__');
       var children = [];
       split.map((piece,key) => {
-        var is_highlight = false
+      var idx = 0;
         hightlight_words.map(word => {
-          is_highlight = piece.includes(word)
+          if (piece.includes(word)) {
+            children.push(<span key={uuidV4()}>{piece.substring(idx,piece.indexOf(word))}</span>);
+            children.push(<span style={{ backgroundColor: 'yellow'}} key={uuidV4()}>{word}</span>);
+            idx = piece.indexOf(word) + word.length;
+          }
         })
 
-        children.push(<span style={is_highlight ? { backgroundColor: 'yellow'} : {}} key={key+'sent'}>{piece}</span>);
-        children.push(<br key={key+'br'}/>)
+        children.push(<span key={uuidV4()}>{piece.substring(idx,piece.length)}</span>);
+        children.push(<br key={uuidV4()}/>)
       })
       return children;
     })
